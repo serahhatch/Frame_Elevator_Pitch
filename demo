@@ -1,0 +1,276 @@
+import streamlit as st
+import pandas as pd
+ 
+st.set_page_config(
+page_title="FRAME",
+page_icon="🧩",
+layout="wide"
+)
+ 
+# --------------------------------------------------
+# DEMO DATA
+# --------------------------------------------------
+ 
+project_name = "E-Motor Housing Redesign"
+ 
+modules = [
+"Project Hub",
+"Concept Development",
+"Part Optimization",
+"Build Refinement",
+"Part Approvals",
+"Preproduction",
+"Production",
+"Retrospective"
+]
+ 
+subpages = {
+"Concept Development": [
+"Requirements",
+"Stakeholder Input",
+"Concept Selection",
+"Decision Log"
+],
+"Part Optimization": [
+"Thermal Testing",
+"Weight Reduction",
+"Material Evaluation",
+"Engineering Decisions"
+],
+"Build Refinement": [
+"Prototype Build A",
+"Prototype Build B",
+"Issue Tracking",
+"Corrective Actions"
+],
+"Part Approvals": [
+"Supplier Approval",
+"Quality Review",
+"Engineering Signoff",
+"Approval Matrix"
+],
+"Preproduction": [
+"Pilot Run",
+"Risk Assessment",
+"Process Validation"
+],
+"Production": [
+"Launch Readiness",
+"KPI Dashboard",
+"SOP References"
+],
+"Retrospective": [
+"Lessons Learned",
+"Best Practices",
+"Future Recommendations"
+]
+}
+ 
+# --------------------------------------------------
+# SIDEBAR
+# --------------------------------------------------
+ 
+st.sidebar.title("🧩 FRAME")
+ 
+page = st.sidebar.selectbox(
+"Navigate",
+modules
+)
+ 
+st.sidebar.divider()
+ 
+st.sidebar.subheader("Template")
+ 
+template = st.sidebar.selectbox(
+"Framework",
+[
+"Innovation Cycle",
+"Fast Prototype",
+"Production Launch",
+"Supplier Qualification"
+]
+)
+ 
+st.sidebar.success(f"Loaded: {template}")
+ 
+# --------------------------------------------------
+# PROJECT HUB
+# --------------------------------------------------
+ 
+if page == "Project Hub":
+ 
+st.title("FRAME")
+st.subheader(project_name)
+ 
+c1, c2, c3, c4 = st.columns(4)
+ 
+c1.metric("Open Decisions", "14")
+c2.metric("Active Experiments", "6")
+c3.metric("Pending Approvals", "3")
+c4.metric("Lessons Learned", "22")
+ 
+st.divider()
+ 
+st.subheader("Project Progress")
+ 
+st.progress(70)
+ 
+progress_df = pd.DataFrame({
+"Phase": [
+"Concept Development",
+"Part Optimization",
+"Build Refinement",
+"Part Approvals",
+"Preproduction",
+"Production",
+"Retrospective"
+],
+"Status": [
+"Complete",
+"Complete",
+"Complete",
+"In Progress",
+"Not Started",
+"Not Started",
+"Not Started"
+]
+})
+ 
+st.dataframe(progress_df, use_container_width=True)
+ 
+st.divider()
+ 
+st.subheader("Knowledge Flow")
+ 
+st.markdown("""
+```text
+Requirement
+↓
+Concept
+↓
+Experiment
+↓
+Decision
+↓
+Approval
+↓
+Production
+↓
+Lessons Learned
+```
+""")
+ 
+st.info(
+"Frame captures not only what happened, but why it happened."
+)
+ 
+# --------------------------------------------------
+# GENERIC PHASE PAGES
+# --------------------------------------------------
+ 
+else:
+ 
+st.title(page)
+ 
+selected_subpage = st.selectbox(
+"Select Page",
+subpages.get(page, ["Overview"])
+)
+ 
+st.subheader(selected_subpage)
+ 
+left, right = st.columns([2, 1])
+ 
+with left:
+ 
+st.markdown("### Project Record")
+ 
+st.text_input(
+"Owner",
+value="Engineering Team"
+)
+ 
+st.text_input(
+"Objective",
+value="Increase performance while maintaining manufacturability."
+)
+ 
+st.text_area(
+"Description",
+value="""
+Validate design updates and document supporting evidence,
+experiments, and decisions.
+""",
+height=150
+)
+ 
+st.text_area(
+"Results",
+value="""
+Performance improved by 18%.
+Testing objectives achieved.
+No critical issues identified.
+""",
+height=120
+)
+ 
+st.text_area(
+"Decision",
+value="""
+Proceed to next phase and update applicable SOP references.
+""",
+height=120
+)
+ 
+with right:
+ 
+st.markdown("### Status")
+ 
+st.selectbox(
+"Current Status",
+["Draft", "In Progress", "Review", "Approved"],
+index=2
+)
+ 
+st.markdown("### Linked Items")
+ 
+st.success("EXP-004 Thermal Test")
+ 
+st.success("DEC-014 Material Selection")
+ 
+st.success("APR-008 Engineering Approval")
+ 
+st.success("SOP-021 Manufacturing Process")
+ 
+st.divider()
+ 
+st.subheader("Traceability")
+ 
+traceability = pd.DataFrame({
+"Type": [
+"Requirement",
+"Experiment",
+"Decision",
+"Approval",
+"SOP"
+],
+"Reference": [
+"REQ-002",
+"EXP-004",
+"DEC-014",
+"APR-008",
+"SOP-021"
+]
+})
+ 
+st.dataframe(traceability, use_container_width=True)
+ 
+# --------------------------------------------------
+# MASTER CONFIGURATION PANEL
+# --------------------------------------------------
+ 
+st.divider()
+ 
+with st.expander("⚙ Framework Configuration Builder"):
+ 
+st.
